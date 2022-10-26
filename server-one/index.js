@@ -5,13 +5,20 @@ const port = 3000;
 let counter = 0;
 
 app.use(express.static("public"));
+app.set("view engine","pug");
 app.get("/",(req,res) => {
     res.send("Hello World!");
 })
 
 app.get("/test",(req,res) => {
+    console.log("someone is trying to test me");
     counter++;
-    res.send("<h1>Test counter</h1><p>" + counter + "</p>");
+    res.render("test", {
+        title: "Pug test page",
+        header1: "Pug test page",
+        header2: "Counter",
+        exampleText:"Page requested " + counter + " times.",
+    })
 })
 
 app.get("/catinfo",(req,res) => {
