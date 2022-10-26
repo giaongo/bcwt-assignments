@@ -1,5 +1,19 @@
 {
+  "name": "bcwt-week-one",
+  "version": "0.0.1",
+  "description": "example of node app",
+  "main": "script.js",
   "dependencies": {
     "lodash": "^4.17.21"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon script.js"
+    
+  },
+  "author": "giao",
+  "license": "ISC"
 }
