@@ -1,18 +1,12 @@
 'use strict';
 const userModel = require("../models/userModel");
-const users = userModel.users
 
-const getUsers = (req,res) => {
-    // remove the password property from all user items in the array
-    users.map(user => {
-        delete user.password
-        return user
-    })
+const getUsers = async (req,res) => {    
+    const users = await userModel.getAllUsers(res)
     res.json(users)
 }
-const getUser = (req,res) => {
-    // choose only one object with matching id
-    const user = users.filter(user => req.params.userId === user.id)[0]
+const getUser = async (req,res) => {
+    const user = await userModel.getUserById(res,req.params.userId)
     if(user) {
         delete user.password
         res.json(user)
@@ -26,7 +20,8 @@ const createUser = (req,res) => {
     const userInfo = `username: ${req.body.name}, email: ${req.body.email}`
     res.send("Adding new user" + userInfo)
 }
-const deleteUser = (req,res) => {}
+const deleteUser = (req,res) => {
+}
 
 module.exports = {
     getUsers,
