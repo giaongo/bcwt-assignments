@@ -20,7 +20,19 @@ const getUserById = async (res,userId) => {
     res.status(500).send(e.message)
   }
 }
+const addUser = async(res,data) => {
+  const {name,email,passwd} = data
+  try {
+    await promisePool.query("INSERT INTO wop_user(name,email,password) VALUES(?,?,?)",[name, email,passwd])
+    res.send("working")
+  } catch(e) {
+    console.log("error",e.message);
+    res.status(500).send(e.message)
+  }
+}
+
 module.exports = {
   getAllUsers,
-  getUserById
+  getUserById,
+  addUser
 };

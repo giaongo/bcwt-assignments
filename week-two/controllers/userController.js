@@ -15,11 +15,11 @@ const getUser = async (req,res) => {
     }
 }
 const modifyUser = (req,res) => {}
-const createUser = (req,res) => {
-    console.log(req.body);
-    const userInfo = `username: ${req.body.name}, email: ${req.body.email}`
-    res.send("Adding new user" + userInfo)
+const createUser = async(req,res) => {
+    await userModel.addUser(res,req.body)
 }
+
+
 const deleteUser = (req,res) => {
 }
 
