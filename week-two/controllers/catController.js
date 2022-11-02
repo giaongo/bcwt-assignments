@@ -14,7 +14,10 @@ const getCat = async(req,res) => {
     }
 
 }
-const modifyCat = (req,res) => {}
+const modifyCat = async(req,res) => {
+    await catModel.modifyCat(res,req.body)
+    console.log("data updated");
+}
 const createCat = async (req,res) => {
     await catModel.createCat(res,req.body,req.file)
 }
