@@ -15,7 +15,10 @@ const getCat = (req,res) => {
 
 }
 const modifyCat = (req,res) => {}
-const createCat = (req,res) => {}
+const createCat = (req,res) => {
+    console.log(req.body)
+    res.send("From this endpoint you can add more cats.")
+}
 const deleteCat = (req,res) => {}
 module.exports = {
     getCat,
