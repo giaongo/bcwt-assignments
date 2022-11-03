@@ -18,10 +18,15 @@ const modifyCat = async(req,res) => {
     await catModel.modifyCat(res,req.body)
     console.log("data updated");
 }
-const createCat = async (req,res) => {
+const createCat = async(req,res) => {
     await catModel.createCat(res,req.body,req.file)
+    console.log("Create successfully");
 }
-const deleteCat = (req,res) => {}
+const deleteCat = async(req,res) => {
+    await catModel.deleteCat(res,req.params.catId)
+    console.log("Delete successfully");
+
+}
 module.exports = {
     getCat,
     getCats,
