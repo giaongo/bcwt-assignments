@@ -16,7 +16,9 @@ const getUser = async (req,res) => {
 }
 const modifyUser = (req,res) => {}
 const createUser = async(req,res) => {
-    await userModel.addUser(res,req.body)
+    const result = await userModel.addUser(res,req.body)
+    console.log(result);
+    res.status(201)
 }
 
 

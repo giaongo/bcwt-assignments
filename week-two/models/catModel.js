@@ -11,7 +11,7 @@ const getAllCats = async (res) => {
     console.error("error", e.message);
     res.status(500).send(e.message);
   }
-};
+}
 
 const getCatById = async (res,catId) => {
   try {
@@ -22,14 +22,15 @@ const getCatById = async (res,catId) => {
     console.error("error", e.message);
     res.status(500).send(e.message);
   }
-};
+}
 
 const createCat = async(res,data,fileData) => {
   const {name,weight,owner,birthdate} = data;
   const {filename} = fileData;
   try {
-    await promisePool.query("INSERT INTO wop_cat(name,weight,owner,filename,birthdate) VALUES(?,?,?,?,?)",
+    const [result] = await promisePool.query("INSERT INTO wop_cat(name,weight,owner,filename,birthdate) VALUES(?,?,?,?,?)",
     [name,weight,owner,filename,birthdate]);
+    return result.insertId
   } catch(e) {
     console.log("error",e.message);
     res.status(500).send(e.message);
@@ -49,7 +50,8 @@ const modifyCat = async (res,newData) => {
 
 const deleteCat = async(res, id) => {
   try {
-    await promisePool.query("DELETE FROM wop_cat WHERE cat_id = ?", [id])
+    const [rows] = await promisePool.query("DELETE FROM wop_cat WHERE cat_id = ?", [id])
+    return rows
   } catch(e) {
     console.log("error",e.message);
     res.status(500).send(e.message);
@@ -61,4 +63,4 @@ module.exports = {
   createCat,
   modifyCat,
   deleteCat
-};
+}

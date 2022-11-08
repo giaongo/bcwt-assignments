@@ -12,4 +12,7 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 app.use("/cat",catRouter);
 app.use("/user",userRouter);
 
+// server uploaded files
+app.use(express.static("uploads"));
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
