@@ -10,12 +10,12 @@ const upload = multer({dest:"uploads/"})
 router.route("/")
 .get(catController.getCats)
 .post(upload.single("cat"),catController.createCat)
-.put(catController.modifyCat);
+.put(catController.modifyCat)
 
 router.route("/:catId")
 .get(catController.getCat)
 .delete(catController.deleteCat)
-
+.put(catController.modifyCat);
 
 
 module.exports = router;

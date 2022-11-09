@@ -15,8 +15,16 @@ const getCat = async(req,res) => {
 
 }
 const modifyCat = async(req,res) => {
-    await catModel.modifyCat(res,req.body);
-    console.log("data updated");
+    if (req.params.id) {
+        req.body.id = req.params.catId
+    }
+    console.log(req.body);
+    const result = await catModel.updateCatById(res,req.body);
+    if(result.affectedRows > 0) {
+        res.json({message:"cat modified"})
+    } else {
+        res.status(404).json({message:"cat was already deleted"})
+    }
 }
 const createCat = async(req,res) => {
     const catId = await catModel.createCat(res,req.body,req.file);
