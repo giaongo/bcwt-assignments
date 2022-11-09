@@ -58,3 +58,17 @@ const picArray = [
 ];
 
 // Put code of task D here
+const main = document.querySelector("main")
+picArray.forEach(data => {
+  main.innerHTML += 
+  `<article>
+    <header>
+        <h2>${data.title}</h2>
+    </header>
+    <figure>
+        <img src=${data.filename} alt=${data.title}>
+        <figcaption>${data.caption}</figcaption>
+    </figure>
+    <p>${data.description}</p>
+  </article>`
+})
