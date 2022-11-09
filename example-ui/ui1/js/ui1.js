@@ -12,7 +12,7 @@ const getCat = async () => {
     <li>
         <h2>${cat.name}</h2>
         <figure>
-            <img src="${cat.filename}" class="resp">
+            <img src="http://localhost:3000/${cat.filename}" class="resp"/>
         </figure>
         <p>Birthdate: ${cat.birthdate}</p>
         <p>Weight: ${cat.weight}kg</p>
