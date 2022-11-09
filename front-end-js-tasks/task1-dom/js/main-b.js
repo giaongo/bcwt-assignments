@@ -17,4 +17,4 @@ p.innerText = ">Here is some text. Here is some text. Here is some text. Here is
 figure.append(img,figcaption)
 article.append(header,figure,p)
 main.appendChild(article)
-console.log(main);
+
