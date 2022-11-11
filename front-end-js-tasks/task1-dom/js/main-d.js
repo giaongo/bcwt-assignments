@@ -58,7 +58,7 @@ const picArray = [
 ];
 
 // Put code of task D here
-const main = document.querySelector("main")
+const main = document.querySelector("main");
 picArray.forEach(data => {
   main.innerHTML += 
   `<article>
@@ -71,4 +71,4 @@ picArray.forEach(data => {
     </figure>
     <p>${data.description}</p>
   </article>`
-})
+});

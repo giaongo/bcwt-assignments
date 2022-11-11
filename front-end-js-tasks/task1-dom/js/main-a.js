@@ -1,5 +1,5 @@
 "use strict";
-const main = document.querySelector("main")
+const main = document.querySelector("main");
 main.innerHTML += `<article>
 <header>
     <h2>Article header</h2>

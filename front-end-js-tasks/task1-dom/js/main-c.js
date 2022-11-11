@@ -58,24 +58,24 @@ const picArray = [
 ];
 
 // Put code of task C here
-const main = document.querySelector("main")
+const main = document.querySelector("main");
 
 picArray.forEach(data => {
-  const header = document.createElement("header")
-  const h2 = document.createElement("h2")
-  const figure = document.createElement("figure")
-  const img = document.createElement("img")
-  const figcaption = document.createElement("figcaption")
-  const p = document.createElement("p")
-  const article = document.createElement("article")
-  header.appendChild(h2)
-  figure.append(img,figcaption)
-  article.append(header,figure,p)
-  main.appendChild(article)
+  const header = document.createElement("header");
+  const h2 = document.createElement("h2");
+  const figure = document.createElement("figure");
+  const img = document.createElement("img");
+  const figcaption = document.createElement("figcaption");
+  const p = document.createElement("p");
+  const article = document.createElement("article");
+  header.appendChild(h2);
+  figure.append(img,figcaption);
+  article.append(header,figure,p);
+  main.appendChild(article);
 
-  h2.innerText = data.title
-  img.alt = data.title
-  figcaption.innerText = data.caption
-  img.src = data.filename
-  p.innerText = data.description
+  h2.innerText = data.title;
+  img.alt = data.title;
+  figcaption.innerText = data.caption;
+  img.src = data.filename;
+  p.innerText = data.description;
 })
