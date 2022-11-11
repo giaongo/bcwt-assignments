@@ -3,20 +3,20 @@ const apiUrl = "https://api.tvmaze.com/search/shows?q="
 const form = document.querySelector("#search-form");
 const button = form.querySelector("button");
 const input = form.querySelector("input");
-const results = document.querySelector("#results")
+const results = document.querySelector("#results");
 button.addEventListener("click",(event) => {
     // do not submit the form to anywhere (no page refresh)
     event.preventDefault();     
     event.stopPropagation(); // prevents other generic event listeners
     const queryParam = input.value;
     if(queryParam) {
-        getTVSeriesData(queryParam)
+        getTVSeriesData(queryParam);
     }
 });
 
 const getTVSeriesData = async(name) => {
     try {
-        const response = await fetch(apiUrl + name)
+        const response = await fetch(apiUrl + name);
         const data = await response.json();
         console.log("results:",data);
         renderResult(data);
@@ -38,7 +38,7 @@ const renderDataIntoResult = (data,results) => {
     const img = document.createElement("img");
     img.src = data.show.image ? data.show.image.medium : "http://placekitten.com/200/300";
     const officialSite = document.createElement("a");
-    const siteLink = data.show.officialSite ? data.show.officialSite : "#No-Link"
+    const siteLink = data.show.officialSite ? data.show.officialSite : "#No-Link";
     officialSite.href = siteLink;
     officialSite.innerText = siteLink;
     officialSite.style.display = "block";
@@ -48,7 +48,7 @@ const renderDataIntoResult = (data,results) => {
     results.append(img);
     results.append(officialSite);
     results.append(summary);
-    renderGenres(data.show.genres,results)
+    renderGenres(data.show.genres,results);
 }
 
 const renderGenres = (genresList,results) => {
