@@ -1,0 +1,14 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0; 
+}
+.tabContainer {
+    width:300px;
+    padding: 30px 20px 0;
+}
+
+.activeTab {
+    background-color: #FFCACA ;
+}
