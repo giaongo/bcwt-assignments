@@ -30,13 +30,18 @@ function asTabs(node) {
   const tabContainer = document.createElement("div");
   tabContainer.className = "tabContainer";
   tabs.before(tabContainer);
-  Object.values(node.children).forEach((child) => {
+  Object.values(node.children).forEach((child,index) => {
     const button = document.createElement("button");
     button.textContent = child.getAttribute("data-tabname");
     button.id = button.textContent;
     tabContainer.appendChild(button);
     tabList.push({ button, content: child });
-    child.style.display = "none";
+    if(index !== 0) {
+      child.style.display = "none";
+    } else {
+      button.classList.add("activeTab")
+      child.classList.add("activeTab")
+    }
   });
   changeTab(tabList);
 }
