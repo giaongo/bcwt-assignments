@@ -1,6 +1,7 @@
 'use strict';
 // catController
 const catModel = require('../models/catModel');
+const {validationResult} = require("express-validator");
 const getCats = async (req,res) => {
     const cats = await catModel.getAllCats(res);
     res.json(cats);
@@ -27,9 +28,16 @@ const modifyCat = async(req,res) => {
     }
 }
 const createCat = async(req,res) => {
-    const catId = await catModel.createCat(res,req.body,req.file);
-    console.log("Create successfully");
-    res.status(201).json({catId});
+    const errors = validationResult(req);
+    if(errors.isEmpty() && req.file) {
+        const catId = await catModel.createCat(res,req.body,req.file);
+        console.log("Create successfully");
+        res.status(201).json({message: "cat created",catId});
+    } else {
+        console.log("validation errors",errors);
+        res.status(400).json({message: "cat creation fails",errors:errors.array()})
+    }
+
 }
 const deleteCat = async(req,res) => {
     const result = await catModel.deleteCat(res,req.params.catId);
