@@ -12,9 +12,10 @@ const fileFilter = (req,file,cb) => {
     const acceptedTypes = ["image/jpeg","image/png","image/gif"]
     if(acceptedTypes.includes(file.mimetype)) {
         cb(null, true);
+    } else {
+        cb(null, false);
     }
-     // To reject this file pass `false`, like so:
-    cb(null, false);
+
 }
 const upload = multer({dest:"uploads/",fileFilter})
 router.route("/")
