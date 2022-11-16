@@ -29,7 +29,9 @@ const modifyCat = async(req,res) => {
 }
 const createCat = async(req,res) => {
     const errors = validationResult(req);
-    if(errors.isEmpty() && req.file) {
+    if (!req.file) {
+        res.status(400).json({message:"File missing or invalid"})
+    } else if(errors.isEmpty()) {
         const catId = await catModel.createCat(res,req.body,req.file);
         console.log("Create successfully");
         res.status(201).json({message: "cat created",catId});

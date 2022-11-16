@@ -21,17 +21,17 @@ router.route("/")
 .get(catController.getCats)
 .post(
     upload.single("cat"),
-    body("name").isAlphanumeric(),
+    body("name").isAlphanumeric().trim().escape(),
     body("birthdate").isDate(),
     body("weight").isFloat({min:0.1,max:30}),
     body("owner").isInt({min:1}),
     catController.createCat)
-.put(catController.modifyCat)
+.put(catController.modifyCat) // Add validator
 
 router.route("/:catId")
 .get(catController.getCat)
 .delete(catController.deleteCat)
-.put(catController.modifyCat);
+.put(catController.modifyCat); // Add validator
 
 
 module.exports = router;
