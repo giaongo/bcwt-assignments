@@ -27,12 +27,22 @@ router.route("/")
     body("weight").isFloat({min:0.1,max:30}),
     body("owner").isInt({min:1}),
     catController.createCat)
-.put(catController.modifyCat) // Add validator
+.put(
+    body("name").isAlphanumeric().trim().escape(),
+    body("birthdate").isDate(),
+    body("weight").isFloat({min:0.1,max:30}),
+    body("owner").isInt({min:1}),
+    catController.modifyCat) // Add validator
 
 router.route("/:catId")
 .get(catController.getCat)
 .delete(catController.deleteCat)
-.put(catController.modifyCat); // Add validator
+.put(
+    body("name").isAlphanumeric().trim().escape(),
+    body("birthdate").isDate(),
+    body("weight").isFloat({min:0.1,max:30}),
+    body("owner").isInt({min:1}),
+    catController.modifyCat); // Add validator
 
 
 module.exports = router;

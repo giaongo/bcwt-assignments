@@ -16,16 +16,21 @@ const getCat = async(req,res) => {
 
 }
 const modifyCat = async(req,res) => {
-    if (req.params.id) {
+    if (req.params.catId) {
         req.body.id = req.params.catId
     }
-    console.log(req.body);
-    const result = await catModel.updateCatById(res,req.body);
-    if(result.affectedRows > 0) {
-        res.json({message:"cat modified"})
+    const errors = validationResult(req);
+    if(errors.isEmpty()) {
+        const result = await catModel.updateCatById(res,req.body);
+        if(result.affectedRows > 0) {
+            res.json({message:"cat modified"})
+        } else {
+            res.status(404).json({message:"cat was already deleted"})
+        }
     } else {
-        res.status(404).json({message:"cat was already deleted"})
+        res.status(400).json({message:"Cat modified failed",errors:errors.array()})
     }
+
 }
 const createCat = async(req,res) => {
     const errors = validationResult(req);
