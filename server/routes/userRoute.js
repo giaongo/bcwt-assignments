@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const {body} = require("express-validator");
 const userController = require("../controllers/userController")
-
+router.get("/token",userController.checkToken)
 router.route("/")
 .get(userController.getUsers)
 .post(

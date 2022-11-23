@@ -21,6 +21,20 @@ const getUserById = async (res,userId) => {
     res.status(500).send(e.message)
   }
 }
+
+const getUserLogin = async (user) => {
+  try {
+    console.log("getUser",user);
+    const [rows] = await promisePool.execute(
+        'SELECT * FROM wop_user WHERE email = ?;',
+        user);
+    return rows;
+  } catch (e) {
+    console.log("error",e.message);
+    res.status(500).send(e.message);
+  }
+};
+
 const addUser = async(res,data) => {
   const {name,email,passwd,role} = data;
   try {
@@ -59,6 +73,7 @@ const deleteUser = async(res,id) => {
 module.exports = {
   getAllUsers,
   getUserById,
+  getUserLogin,
   addUser,
   modifyUser,
   deleteUser
