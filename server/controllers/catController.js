@@ -21,8 +21,11 @@ const modifyCat = async(req,res) => {
     }
     const errors = validationResult(req);
     if(errors.isEmpty()) {
-        const owner = req.user.user_id;
-        const result = await catModel.updateCatById(res,req.body,owner);
+        const user = req.user.user_id;
+        if(!req.body.owner) {
+            req.body.owner = user;
+        }
+        const result = await catModel.updateCatById(res,req.body,user);
         console.log("cat modified",result);
         if(result.affectedRows > 0) {
             res.json({message:"cat modified"})

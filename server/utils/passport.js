@@ -14,7 +14,6 @@ passport.use(
     const params = [username];
     try {
       const [user] = await getUserLogin(params);
-      console.log("Local strategy", user); // result is binary row
       if (user === undefined) {
         return done(null, false, { message: "Incorrect email." });
       }
@@ -34,7 +33,6 @@ passport.use(new JWTStrategy({
   secretOrKey   : process.env.JWT_SECRET
 },
 (jwtPayload, done) => {
-  console.log("deserialize user",jwtPayload);
   return done(null, jwtPayload);
 }
 ));
