@@ -15,23 +15,6 @@ const getUser = async (req,res) => {
     }
 }
 
-const createUser = async(req,res) => {
-    if(!req.body.role) {
-        req.body.role = 1
-    }
-    const errors = validationResult(req);
-    console.log("validation errors",errors);
-    if(errors.isEmpty()) {
-        const result = await userModel.addUser(res,req.body)
-        console.log(result);
-        res.status(201).json({message:"user created",userId:result})
-    } else {
-        res.status(400).json({message:"user creation failed",errors: errors.array()})
-    }
-
-}
-
-
 const modifyUser = async(req,res) => {
     if(req.params.userId) {
         req.body.id = req.params.userId;
@@ -61,13 +44,13 @@ const deleteUser = async (req,res) => {
 }
 
 const checkToken = (req,res) => {
+    console.log("check req.user content",req.user);
     res.json({user:req.user})
 }
 module.exports = {
     getUsers,
     getUser, 
     modifyUser,
-    createUser,
     deleteUser,
     checkToken
 }

@@ -34,7 +34,7 @@ passport.use(new JWTStrategy({
   secretOrKey   : process.env.JWT_SECRET
 },
 (jwtPayload, done) => {
-  //console.log(jwtPayload);
+  console.log("deserialize user",jwtPayload);
   return done(null, jwtPayload);
 }
 ));
