@@ -37,11 +37,11 @@ const createCat = async(res,data,fileData) => {
   }
 }
 
-const updateCatById = async (res,newData) => {
-  const {name,birthdate,weight,owner,id} = newData
+const updateCatById = async (res,newData,owner) => {
+  const {name,birthdate,weight,id} = newData
   try {
-    const [rows] = await promisePool.query("UPDATE wop_cat SET name= ?, weight= ?, owner= ?,birthdate= ? WHERE cat_id = ?",
-    [name,weight,owner,birthdate,id]);
+    const [rows] = await promisePool.query("UPDATE wop_cat SET name= ?, weight= ?,birthdate= ? WHERE cat_id = ? AND owner = ?",
+    [name,weight,birthdate,id,owner]);
     return rows
   } catch(e) {
     console.log("error",e.message);

@@ -21,14 +21,16 @@ const modifyCat = async(req,res) => {
     }
     const errors = validationResult(req);
     if(errors.isEmpty()) {
-        const result = await catModel.updateCatById(res,req.body);
+        const owner = req.user.user_id;
+        const result = await catModel.updateCatById(res,req.body,owner);
+        console.log("cat modified",result);
         if(result.affectedRows > 0) {
             res.json({message:"cat modified"})
         } else {
-            res.status(404).json({message:"cat was already deleted"})
+            res.status(404).json({message:"cat modified failed"})
         }
     } else {
-        res.status(400).json({message:"Cat modified failed",errors:errors.array()})
+        res.status(400).json({message:"Cat error with validation",errors:errors.array()})
     }
 
 }

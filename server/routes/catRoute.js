@@ -22,7 +22,7 @@ router.route("/")
 .get(catController.getCats)
 .post(
     upload.single("cat"),
-    body("name").isLength({min:2}).trim().escape(),
+    body("name").isLength({min:3}).trim().escape(),
     body("birthdate").isDate(),
     body("weight").isFloat({min:0.1,max:30}),
     catController.createCat)
@@ -37,10 +37,9 @@ router.route("/:catId")
 .get(catController.getCat)
 .delete(catController.deleteCat)
 .put(
-    body("name").isAlphanumeric().trim().escape(),
+    body("name").isLength({min:3}).trim().escape(),
     body("birthdate").isDate(),
     body("weight").isFloat({min:0.1,max:30}),
-    body("owner").isInt({min:1}),
     catController.modifyCat); // Add validator
 
 
