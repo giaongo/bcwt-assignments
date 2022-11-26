@@ -21,6 +21,20 @@ const getUserById = async (res,userId) => {
     res.status(500).send(e.message)
   }
 }
+
+const getUserLogin = async (user) => {
+  try {
+    console.log("getUser",user);
+    const [rows] = await promisePool.execute(
+        'SELECT * FROM wop_user WHERE email = ?;',
+        user);
+    return rows;
+  } catch (e) {
+    console.log("error",e.message);
+    res.status(500).send(e.message);
+  }
+};
+
 const addUser = async(res,data) => {
   const {name,email,passwd,role} = data;
   try {
@@ -32,23 +46,28 @@ const addUser = async(res,data) => {
   }
 }
 
-const modifyUser = async(res,data) => {
+const modifyUser = async(res,data,loginUser) => {
   const {name,email,passwd,role,id} = data;
+  let query = "UPDATE wop_user SET name=?,email=?,password=?,role=?";
   try {
-    const query = "UPDATE wop_user SET name=?,email=?,password=?,role=? WHERE user_id =?"
-    const [result] = await promisePool.query(query,[name,email,passwd,role,id]);
-    return result;
+    if(loginUser === parseInt(id) || loginUser === 1) {
+      query += " WHERE user_id =?"
+      const [result] = await promisePool.query(query,[name,email,passwd,role,id]);
+      return result;
+    }
   } catch(e) {
     console.log("error",e.message);
     res.status(500).send(e.message);
   }
 }
 
-const deleteUser = async(res,id) => {
+const deleteUser = async(res,id,loginUser) => {
   try {
-    const query = "DELETE FROM wop_user WHERE user_id=?"
-    const [rows] = await promisePool.query(query,[id])
-    return rows
+    if(loginUser === 1) {
+      const query = "DELETE FROM wop_user WHERE user_id=?"
+      const [rows] = await promisePool.query(query,[id])
+      return rows
+    }
   } catch(e) {
     console.log("error",e.message);
     res.status(500).send(e.message);
@@ -59,6 +78,7 @@ const deleteUser = async(res,id) => {
 module.exports = {
   getAllUsers,
   getUserById,
+  getUserLogin,
   addUser,
   modifyUser,
   deleteUser

@@ -37,11 +37,18 @@ const createCat = async(res,data,fileData) => {
   }
 }
 
-const updateCatById = async (res,newData) => {
+const updateCatById = async (res,newData,loginUser) => {
   const {name,birthdate,weight,owner,id} = newData
   try {
-    const [rows] = await promisePool.query("UPDATE wop_cat SET name= ?, weight= ?, owner= ?,birthdate= ? WHERE cat_id = ?",
-    [name,weight,owner,birthdate,id]);
+    let query = "";
+    const queryPlaceHolder = [name,weight,owner,birthdate,id];
+    if(loginUser === 1) {
+      query = "UPDATE wop_cat SET name= ?, weight= ?,owner = ?,birthdate= ? WHERE cat_id = ?";
+    } else {
+      query = "UPDATE wop_cat SET name= ?, weight= ?,owner = ?,birthdate= ? WHERE cat_id = ? AND owner = ?";
+      queryPlaceHolder.push(loginUser);
+    }
+    const [rows] = await promisePool.query(query,queryPlaceHolder);
     return rows
   } catch(e) {
     console.log("error",e.message);
@@ -49,9 +56,17 @@ const updateCatById = async (res,newData) => {
   }
 }
 
-const deleteCat = async(res, id) => {
+const deleteCat = async(res, id,owner) => {
   try {
-    const [rows] = await promisePool.query("DELETE FROM wop_cat WHERE cat_id = ?", [id])
+    let query = "";
+    const queryPlaceHolder = [id];
+    if(owner === 1) {
+      query = "DELETE FROM wop_cat WHERE cat_id = ?";
+    } else {
+      query = "DELETE FROM wop_cat WHERE cat_id = ? AND owner = ?";
+      queryPlaceHolder.push(owner);
+    }
+    const [rows] = await promisePool.query(query, queryPlaceHolder);
     return rows
   } catch(e) {
     console.log("error",e.message);
