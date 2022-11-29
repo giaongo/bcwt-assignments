@@ -1,6 +1,6 @@
 node_modules/
 server/uploads/*
 !server/uploads/.gitkeep
-server/thumbnail/*
-!server/thumbnail/.gitkeep
+server/thumbnails/*
+!server/thumbnails/.gitkeep
 .env

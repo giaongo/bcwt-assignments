@@ -2,6 +2,7 @@
 // catController
 const catModel = require('../models/catModel');
 const {validationResult} = require("express-validator");
+const {makeThumbnail} = require("../utils/image");
 const getCats = async (req,res) => {
     const cats = await catModel.getAllCats(res);
     res.json(cats);
@@ -42,6 +43,8 @@ const createCat = async(req,res) => {
     if (!req.file) {
         res.status(400).json({message:"File missing or invalid"})
     } else if(errors.isEmpty()) {
+        await makeThumbnail(req.file.path,req.file.filename);
+        // Todo use image.js/getCoord to extract exif-data/gps coords and add to the cat object as cat.coords property in array format (stringify)
         req.body.owner = req.user.user_id;
         const catId = await catModel.createCat(res,req.body,req.file);
         console.log("Create successfully");

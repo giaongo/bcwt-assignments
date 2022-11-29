@@ -25,11 +25,11 @@ const getCatById = async (res,catId) => {
 }
 
 const createCat = async(res,data,fileData) => {
-  const {name,weight,owner,birthdate} = data;
+  const {name,weight,owner,birthdate,coords} = data;
   const {filename} = fileData;
   try {
-    const [result] = await promisePool.query("INSERT INTO wop_cat(name,weight,owner,filename,birthdate) VALUES(?,?,?,?,?)",
-    [name,weight,owner,filename,birthdate]);
+    const [result] = await promisePool.query("INSERT INTO wop_cat(name,weight,owner,filename,birthdate,coords) VALUES(?,?,?,?,?,?)",
+    [name,weight,owner,filename,birthdate,coords]);
     return result.insertId
   } catch(e) {
     console.log("error",e.message);
