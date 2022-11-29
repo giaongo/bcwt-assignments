@@ -7,7 +7,7 @@ const makeThumbnail = async (file, thumbname) => {
   await sharp(file)
   .resize(160,160)
   .png()
-  .toFile("./thumbnails" + thumbname);
+  .toFile("./thumbnails/" + thumbname);
 };
 
 const getCoordinates = (imgFile) => {
