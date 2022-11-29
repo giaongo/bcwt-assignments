@@ -5,7 +5,8 @@ const { getUserLogin } = require("../models/userModel");
 const passportJWT = require("passport-jwt");
 const JWTStrategy  = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
+const bcrypt = require("bcryptjs");
 dotenv.config();
 
 // local strategy for username password login
@@ -17,10 +18,12 @@ passport.use(
       if (user === undefined) {
         return done(null, false, { message: "Incorrect email." });
       }
-      if (user.password !== password) {
+      // Hash login password and compare it to the password in database
+      const passwordOK = await bcrypt.compare(password,user.password);
+      if (!passwordOK) {
         return done(null, false, { message: "Incorrect password." });
       }
-      return done(null, { ...user }, { message: "Logged In Successfully" }); // use spread syntax to create shallow copy to get rid of binary row type
+      return done(null, user, { message: "Logged In Successfully" }); // use spread syntax to create shallow copy to get rid of binary row type
     } catch (err) {
       return done(err);
     }
